@@ -1,0 +1,17 @@
+<?php 
+$this->headTitle('Delete');
+
+if ($this->ok){
+?>
+<h3>Success ! ('DELETED')</h3>
+<?php 
+}
+
+if ($this->form){
+    echo "<b>Are you sure to delete this entry?</b>";
+}
+echo $this->form;
+?>
+<a href='/'>View All</a><br/>
+<a href='/index/new'>Add New</a><br/>
+

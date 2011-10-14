@@ -1,0 +1,63 @@
+<?php 
+$this->title = 'Main';
+$this->headTitle($this->title);
+?>
+<?php 
+require_once 'library/Sunny/Scripts/site_dependent/database_connection.php';
+
+?>
+
+<form action="" method="post">
+<table border = '0' align="center">
+<tr><th colspan='7'>ToDo List (<a href='/index/new'>Add New</a>) </th></tr>
+<tr id='tableHead'>
+	<th>ID</th>
+	<th>Name</th>
+	<th>Note</th>
+	<th>Time</th>
+	<th>Priority</th>
+	<th>Delete</th>
+	<th>Edit</th>
+</tr>
+    <?php 
+    $resultGetTodoList = (array) $this->resultGetTodoList;
+    $resultGetTodoList = $resultGetTodoList['TodoData'];
+    $resultGetTodoList = (array)$resultGetTodoList;
+//    $resultGetTodoList[0] = $resultGetTodoList;
+    $lineNr = 0;
+    debugOk($resultGetTodoList);
+    foreach ($resultGetTodoList as $todo){
+        $todo = (array)($todo);
+        $id=$todo['id'];
+        $name='bisu10';
+        $note=$todo['note'];
+        $time=$todo['date'];
+        $priority=$todo['prio'];
+        ?>
+        
+        <tr align="center" bgcolor='<?php echo (($lineNr % 2) ? '' : 'lavender') ?>' >
+        	<td><?php echo $id?></td>
+        	<td>bisu10</td>
+        	<td><?php echo $note?></td>
+        	<td><?php echo $time?></td>
+        	<td><?php echo $priority?></td>
+        	<td><a href='/index/delete?<?php 
+        	echo "id=$id&name=$name"
+        	?>'>Delete</a></td>
+        	<td><a href='/index/update?<?php 
+        	echo "id=$id&name=$name&note=$note&time=$time&priority=$priority"
+        	?>'>Edit</a></td>
+        </tr>
+        <?php 
+        $lineNr ++;
+    }
+    
+    ?>
+
+<!-- here is the ToDo entrys -->
+<tr><td id='toDoNr' colspan='7'></td></tr>
+</table>
+</form>
+
+<hr />
+
