@@ -10,7 +10,7 @@ class Application_Model_SoapServer
         
         function getTodoList($filterName){
             $tableLab2 = new Application_Model_DbTable_Lab2();
-            $recordList = $tableLab2->fetchAll()->toArray();
+            $recordList = $tableLab2->fetchAll(" `name` = '$filterName' ")->toArray();
             
 /*            foreach ($recordList as $record){
             	$oneEntry = new stdClass();
@@ -35,7 +35,7 @@ class Application_Model_SoapServer
             	$prio = $record['priority'];
             	$id = $record['id'];
                 
-                $oneTodoData = "<TodoData><note xsi:type='xs:string'>$note</note><date xsi:type='xs:string'>$date</date><acro xs:null='1'/><prio xsi:type='xs:int'>$prio</prio><id xsi:type='xs:int'>$id</id></TodoData>";
+                $oneTodoData = "<TodoData><note xsi:type='xs:string'>$note</note><date xsi:type='xs:string'>$date</date><acronym xs:null='1'/><prio xsi:type='xs:int'>$prio</prio><id xsi:type='xs:int'>$id</id></TodoData>";
                 $getTodoListResultString .= $oneTodoData;
             }
             $getTodoListResultString .= "</getTodoListResult>";
@@ -43,15 +43,28 @@ class Application_Model_SoapServer
             return $soapVar;
         }
         
-        function createTodo($input){
-        	$output = "create todo";
-        	return($output);
+        function createTodo($acronym, $time, $note, $priority){
+            $data = array('name'=>$acronym, 'time'=>$time, 'text'=>$note, 'priority'=>$priority);
+        	$tableLab2 = new Application_Model_DbTable_Lab2();
+        	$tableLab2->insert($data);
+        	return "INSERTED";
         }
         
+        function deleteTodo($acronym, $id) {
+            $tableLab2 = new Application_Model_DbTable_Lab2();
+        	$tableLab2->delete(" `id` = '$id' AND `name` = '$acronym' ");
+        	return "DELETED";
+        }
         
-        $this->server->addFunction("getTodoList");
-        $this->server->addFunction("createTodo");
+        function updateTodo($id, $acronym, $time, $note, $priority) {
+            $data = array('name'=>$acronym, 'time'=>$time, 'text'=>$note, 'priority'=>$priority);
+        	$tableLab2 = new Application_Model_DbTable_Lab2();
+        	$tableLab2->update($data, " `id` = '$id' ");
+        	return "UPDATED";
+        }
         
+        $this->server->addFunction(array("getTodoList", "createTodo", "deleteTodo", "updateTodo"));
+
     }
     
 

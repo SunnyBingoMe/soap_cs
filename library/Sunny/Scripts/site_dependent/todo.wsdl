@@ -1,41 +1,24 @@
 <?xml version ='1.0' encoding ='UTF-8' ?>
 <definitions 
 name='Sunny' 
-xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:xs='http://www.w3.org/2001/XMLSchema' 
 targetNamespace='todo.wdsl' 
 xmlns:tns='todo.wdsl' 
 xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' 
 xmlns='http://schemas.xmlsoap.org/wsdl/'
 >
 	<types>
-    	<xs:schema elementFormDefault="qualified" targetNamespace="todo.wdsl">
+    	<xs:schema elementFormDefault='qualified' targetNamespace='todo.wdsl'>
 
- 			<xs:complexType name="TodoDataArray"><xs:sequence>
-				<xs:element name="TodoData" type="tns:TodoDataDetails" minOccurs="0"/>
+ 			<xs:complexType name='TodoDataArray'><xs:sequence>
+				<xs:element name='TodoData' type='tns:TodoDataDetails' minOccurs='0'/>
 			</xs:sequence></xs:complexType>
-<!--			<xs:complexType name="TodoDataArray"><complexContent>
-				<restriction base="SOAP-ENC:Array">
-					<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:TodoDataDetails[]"/>
-				</restriction>
-			</complexContent></xs:complexType> -->
-			<xs:complexType name="TodoDataDetails"><xs:all>
-				<xs:element name="note" type="xs:string"/>
-				<xs:element name="date" type="xs:string"/>
-				<xs:element name="acronym" type="xs:string"/>
-				<xs:element name="prio" type="xs:int"/>
-				<xs:element name="id" type="xs:int"/>
-			</xs:all></xs:complexType>
-
-			<xs:complexType name="createTodoResponseDetails"><xs:sequence>
-				<xs:element name="createTodoResult" type="xs:string"/>
-			</xs:sequence></xs:complexType>
-
-			<xs:complexType name="updateTodoResponseDetails"><xs:sequence>
-				<xs:element name="updateTodoResult" type="xs:string"/>
-			</xs:sequence></xs:complexType>
-
-			<xs:complexType name="deleteTodoResponseDetails"><xs:sequence>
-				<xs:element name="deleteTodoResult" type="xs:string"/>
+			<xs:complexType name='TodoDataDetails'><xs:sequence>
+				<xs:element name='note' type='xs:string'/>
+				<xs:element name='date' type='xs:string'/>
+				<xs:element name='acronym' type='xs:string'/>
+				<xs:element name='prio' type='xs:int'/>
+				<xs:element name='id' type='xs:int'/>
 			</xs:sequence></xs:complexType>
 
 		</xs:schema>
@@ -47,7 +30,7 @@ xmlns='http://schemas.xmlsoap.org/wsdl/'
 	  <part name='acro' type='xs:string'/>
 	</message>
 	<message name='getTodoListResponse'>
-	  <part name="getTodoListResult" type="tns:TodoDataArray"/>
+	  <part name='getTodoListResult' type='tns:TodoDataArray'/>
 	</message>
 	
 	<message name='createTodoRequest'>
@@ -57,7 +40,7 @@ xmlns='http://schemas.xmlsoap.org/wsdl/'
 	  <part name='priority' type='xs:int'/>
 	</message>
 	<message name='createTodoResponse'>
-	  <part name='createTodoResponse' type='tns:createTodoResponseDetails'/>
+	  <part name='createTodoResult' type='xs:string'/>
 	</message>
 	
 	<message name='updateTodoRequest'>
@@ -68,7 +51,7 @@ xmlns='http://schemas.xmlsoap.org/wsdl/'
 	  <part name='priority' type='xs:int'/>
 	</message>
 	<message name='updateTodoResponse'>
-	  <part name='updateTodoResponse' type='tns:updateTodoResponseDetails'/>
+	  <part name='updateTodoResult' type='xs:string'/>
 	</message>
 	
 	<message name='deleteTodoRequest'>
@@ -76,7 +59,7 @@ xmlns='http://schemas.xmlsoap.org/wsdl/'
 	  <part name='id' type='xs:int'/>
 	</message>
 	<message name='deleteTodoResponse'>
-	  <part name='deleteTodoResponse' type='tns:deleteTodoResponseDetails'/>
+	  <part name='deleteTodoResult' type='xs:string'/>
 	</message>
 
 	
@@ -96,7 +79,7 @@ xmlns='http://schemas.xmlsoap.org/wsdl/'
 	  </operation>
 	  <operation name='deleteTodo'>
 	    <input message='tns:deleteTodoRequest'/>
-	    <output message='tns:deleteTodoResponse'/>  
+	    <output message='tns:deleteTodoResponse'/>
 	  </operation>
 	</portType>
 	
